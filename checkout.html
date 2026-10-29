@@ -4,18 +4,18 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>Paiement — Maison [Nombre]</title>
+  <title>Paiement — Maison Lumière</title>
 
-  <meta name="description" content="Paiement sécurisé Maison [Nombre] — 3 étapes : personnel, livraison, carte.">
+  <meta name="description" content="Finalisez votre commande en toute sécurité chez Maison Lumière. Paiement en 3 étapes : contact, livraison et carte bancaire.">
 
   <!-- Open Graph -->
   <meta property="og:type" content="website">
-  <meta property="og:title" content="Paiement — Maison [Nombre]">
-  <meta property="og:description" content="Paiement sécurisé Maison [Nombre] — 3 étapes : personnel, livraison, carte.">
-  <meta property="og:image" content="[Placeholder: URL de imagen social]">
+  <meta property="og:title" content="Paiement — Maison Lumière">
+  <meta property="og:description" content="Finalisez votre commande en toute sécurité chez Maison Lumière. Paiement en 3 étapes : contact, livraison et carte bancaire.">
+  <meta property="og:image" content="https://images.unsplash.com/photo-1445205170230-053b83016050?w=1200&q=80">
 
-  <link rel="canonical" href="[Placeholder: URL canónica de la vista]">
-  <link rel="icon" type="image/svg+xml" href="[Placeholder: favicon.svg]">
+  <link rel="canonical" href="https://maison-lumiere.fr/checkout.html">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>👗</text></svg>">
 
   <!-- Tailwind CSS v4 por CDN -->
   <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
@@ -97,11 +97,323 @@
   </header>
 
   <!-- ════════════════════════════════════════════════════════════
-       MAIN — VISTA CHECKOUT (contenido a implementar en siguiente fase)
+       MAIN — CHECKOUT EN 3 PASOS
        ──────────────────────────────────────────────────────────── -->
   <main id="site-main" class="flex-1">
-    <h1 class="sr-only">Paiement — Maison [Nombre]</h1>
-    <!-- [Checkout: flujo en 3 pasos] -->
+
+    <!-- Título visible de la página -->
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 pt-10 pb-6">
+      <h1 class="font-serif text-2xl sm:text-3xl tracking-wide text-center">Paiement</h1>
+      <p class="mt-2 text-center text-sm text-gray-500">Finalisez votre commande en toute sécurité</p>
+    </div>
+
+    <!-- ════════════════════════════════════════════════════════════
+         STEPPER / INDICADOR DE PROGRESO
+         ════════════════════════════════════════════════════════════ -->
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-center gap-0 mb-10">
+
+        <!-- Paso 1 -->
+        <div class="flex items-center">
+          <div id="step-indicator-1" class="flex h-8 w-8 items-center justify-center rounded-full bg-slate-900 text-xs font-bold text-white transition-colors duration-300">1</div>
+          <span id="step-label-1" class="ml-2 text-xs font-semibold uppercase tracking-widest text-slate-900 transition-colors duration-300">Contact</span>
+        </div>
+
+        <!-- Línea conectora 1→2 -->
+        <div id="connector-1" class="mx-3 h-px w-12 bg-neutral-200 transition-colors duration-300 sm:w-20"></div>
+
+        <!-- Paso 2 -->
+        <div class="flex items-center">
+          <div id="step-indicator-2" class="flex h-8 w-8 items-center justify-center rounded-full border-2 border-neutral-300 bg-white text-xs font-bold text-neutral-400 transition-colors duration-300">2</div>
+          <span id="step-label-2" class="ml-2 text-xs font-semibold uppercase tracking-widest text-neutral-400 transition-colors duration-300">Livraison</span>
+        </div>
+
+        <!-- Línea conectora 2→3 -->
+        <div id="connector-2" class="mx-3 h-px w-12 bg-neutral-200 transition-colors duration-300 sm:w-20"></div>
+
+        <!-- Paso 3 -->
+        <div class="flex items-center">
+          <div id="step-indicator-3" class="flex h-8 w-8 items-center justify-center rounded-full border-2 border-neutral-300 bg-white text-xs font-bold text-neutral-400 transition-colors duration-300">3</div>
+          <span id="step-label-3" class="ml-2 text-xs font-semibold uppercase tracking-widest text-neutral-400 transition-colors duration-300">Paiement</span>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ════════════════════════════════════════════════════════════
+         FORMULARIO — CONTENEDOR DE PASOS
+         ════════════════════════════════════════════════════════════ -->
+    <div class="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8 pb-16">
+
+      <form id="checkout-form" novalidate>
+
+        <!-- ──── PASO 1: INFORMACIÓN DE CONTACTO ──── -->
+        <section id="step-1" class="step-panel" data-step="1">
+          <h2 class="font-serif text-xl tracking-wide mb-6">Informations de contact</h2>
+
+          <div class="space-y-5">
+            <!-- Correo electrónico -->
+            <div>
+              <label for="checkout-email" class="block text-xs font-semibold uppercase tracking-widest text-slate-900 mb-1">Correo electrónico <span class="text-red-500">*</span></label>
+              <input
+                id="checkout-email"
+                type="email"
+                name="email"
+                autocomplete="email"
+                placeholder="vous@exemple.fr"
+                required
+                class="w-full border border-gray-300 focus:border-slate-900 focus:ring-1 focus:ring-slate-900 rounded-none px-4 py-3 text-sm outline-none transition-all"
+              >
+              <p class="mt-1 text-xs text-red-500 hidden" id="error-email">Veuillez saisir un email valide.</p>
+            </div>
+
+            <!-- Teléfono -->
+            <div>
+              <label for="checkout-phone" class="block text-xs font-semibold uppercase tracking-widest text-slate-900 mb-1">Teléfono <span class="text-red-500">*</span></label>
+              <input
+                id="checkout-phone"
+                type="tel"
+                name="phone"
+                autocomplete="tel"
+                placeholder="+33 6 12 34 56 78"
+                required
+                class="w-full border border-gray-300 focus:border-slate-900 focus:ring-1 focus:ring-slate-900 rounded-none px-4 py-3 text-sm outline-none transition-all"
+              >
+              <p class="mt-1 text-xs text-red-500 hidden" id="error-phone">Veuillez saisir un numéro de téléphone.</p>
+            </div>
+          </div>
+
+          <!-- Botones del paso 1 -->
+          <div class="mt-8 flex justify-end">
+            <button type="button" class="btn-next bg-slate-900 text-white px-8 py-3 rounded-none hover:bg-slate-800 transition-colors duration-200 uppercase text-xs font-semibold tracking-widest" data-next="2">
+              Suivant
+            </button>
+          </div>
+        </section>
+
+        <!-- ──── PASO 2: INFORMACIÓN DE ENVÍO ──── -->
+        <section id="step-2" class="step-panel hidden" data-step="2">
+          <h2 class="font-serif text-xl tracking-wide mb-6">Adresse de livraison</h2>
+
+          <div class="space-y-5">
+            <!-- Nombre y apellidos -->
+            <div>
+              <label for="checkout-fullname" class="block text-xs font-semibold uppercase tracking-widest text-slate-900 mb-1">Nombre y apellidos <span class="text-red-500">*</span></label>
+              <input
+                id="checkout-fullname"
+                type="text"
+                name="fullname"
+                autocomplete="name"
+                placeholder="Jean Dupont"
+                required
+                class="w-full border border-gray-300 focus:border-slate-900 focus:ring-1 focus:ring-slate-900 rounded-none px-4 py-3 text-sm outline-none transition-all"
+              >
+              <p class="mt-1 text-xs text-red-500 hidden" id="error-fullname">Ce champ est requis.</p>
+            </div>
+
+            <!-- Dirección -->
+            <div>
+              <label for="checkout-address" class="block text-xs font-semibold uppercase tracking-widest text-slate-900 mb-1">Dirección <span class="text-red-500">*</span></label>
+              <input
+                id="checkout-address"
+                type="text"
+                name="address"
+                autocomplete="street-address"
+                placeholder="12 rue de la Paix, 3ème étage"
+                required
+                class="w-full border border-gray-300 focus:border-slate-900 focus:ring-1 focus:ring-slate-900 rounded-none px-4 py-3 text-sm outline-none transition-all"
+              >
+              <p class="mt-1 text-xs text-red-500 hidden" id="error-address">Ce champ est requis.</p>
+            </div>
+
+            <!-- Ciudad y Provincia en grid -->
+            <div class="grid grid-cols-1 gap-5 sm:grid-cols-2">
+              <div>
+                <label for="checkout-city" class="block text-xs font-semibold uppercase tracking-widest text-slate-900 mb-1">Ciudad / Población <span class="text-red-500">*</span></label>
+                <input
+                  id="checkout-city"
+                  type="text"
+                  name="city"
+                  autocomplete="address-level2"
+                  placeholder="Paris"
+                  required
+                  class="w-full border border-gray-300 focus:border-slate-900 focus:ring-1 focus:ring-slate-900 rounded-none px-4 py-3 text-sm outline-none transition-all"
+                >
+                <p class="mt-1 text-xs text-red-500 hidden" id="error-city">Ce champ est requis.</p>
+              </div>
+              <div>
+                <label for="checkout-province" class="block text-xs font-semibold uppercase tracking-widest text-slate-900 mb-1">Provincia / Estado</label>
+                <input
+                  id="checkout-province"
+                  type="text"
+                  name="province"
+                  autocomplete="address-level1"
+                  placeholder="Île-de-France"
+                  class="w-full border border-gray-300 focus:border-slate-900 focus:ring-1 focus:ring-slate-900 rounded-none px-4 py-3 text-sm outline-none transition-all"
+                >
+              </div>
+            </div>
+
+            <!-- Código postal y País en grid -->
+            <div class="grid grid-cols-1 gap-5 sm:grid-cols-2">
+              <div>
+                <label for="checkout-zip" class="block text-xs font-semibold uppercase tracking-widest text-slate-900 mb-1">Código postal <span class="text-red-500">*</span></label>
+                <input
+                  id="checkout-zip"
+                  type="text"
+                  name="zip"
+                  autocomplete="postal-code"
+                  placeholder="75001"
+                  required
+                  class="w-full border border-gray-300 focus:border-slate-900 focus:ring-1 focus:ring-slate-900 rounded-none px-4 py-3 text-sm outline-none transition-all"
+                >
+                <p class="mt-1 text-xs text-red-500 hidden" id="error-zip">Ce champ est requis.</p>
+              </div>
+              <div>
+                <label for="checkout-country" class="block text-xs font-semibold uppercase tracking-widest text-slate-900 mb-1">País <span class="text-red-500">*</span></label>
+                <select
+                  id="checkout-country"
+                  name="country"
+                  autocomplete="country-name"
+                  required
+                  class="w-full border border-gray-300 focus:border-slate-900 focus:ring-1 focus:ring-slate-900 rounded-none px-4 py-3 text-sm outline-none transition-all bg-white"
+                >
+                  <option value="">Sélectionnez un pays</option>
+                  <option value="FR">France</option>
+                  <option value="ES">España</option>
+                  <option value="IT">Italia</option>
+                  <option value="DE">Deutschland</option>
+                  <option value="BE">Belgique</option>
+                  <option value="CH">Suisse</option>
+                  <option value="PT">Portugal</option>
+                  <option value="GB">United Kingdom</option>
+                  <option value="US">United States</option>
+                  <option value="OT">Autre</option>
+                </select>
+                <p class="mt-1 text-xs text-red-500 hidden" id="error-country">Veuillez sélectionner un pays.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Botones del paso 2 -->
+          <div class="mt-8 flex items-center justify-between">
+            <button type="button" class="btn-prev border border-slate-900 text-slate-900 px-8 py-3 rounded-none hover:bg-slate-900 hover:text-white transition-colors duration-200 uppercase text-xs font-semibold tracking-widest" data-prev="1">
+              Retour
+            </button>
+            <button type="button" class="btn-next bg-slate-900 text-white px-8 py-3 rounded-none hover:bg-slate-800 transition-colors duration-200 uppercase text-xs font-semibold tracking-widest" data-next="3">
+              Suivant
+            </button>
+          </div>
+        </section>
+
+        <!-- ──── PASO 3: FACTURACIÓN Y PAGO ──── -->
+        <section id="step-3" class="step-panel hidden" data-step="3">
+          <h2 class="font-serif text-xl tracking-wide mb-6">Facturation &amp; Paiement</h2>
+
+          <!-- -- Bloque facturación -- -->
+          <div class="mb-8">
+            <h3 class="text-sm font-semibold uppercase tracking-widest text-slate-900 mb-4">Informations de facturation</h3>
+            <div class="space-y-5">
+              <!-- DNI / NIF / CIF -->
+              <div>
+                <label for="checkout-taxid" class="block text-xs font-semibold uppercase tracking-widest text-slate-900 mb-1">DNI, NIF o CIF <span class="text-red-500">*</span></label>
+                <input
+                  id="checkout-taxid"
+                  type="text"
+                  name="taxid"
+                  autocomplete="off"
+                  placeholder="XX-12345678"
+                  required
+                  class="w-full border border-gray-300 focus:border-slate-900 focus:ring-1 focus:ring-slate-900 rounded-none px-4 py-3 text-sm outline-none transition-all"
+                >
+                <p class="mt-1 text-xs text-red-500 hidden" id="error-taxid">Ce champ est requis.</p>
+              </div>
+
+              <!-- Nombre de empresa (opcional) -->
+              <div>
+                <label for="checkout-company" class="block text-xs font-semibold uppercase tracking-widest text-slate-900 mb-1">Nombre de la empresa <span class="text-gray-400 font-normal normal-case">(optionnel, B2B)</span></label>
+                <input
+                  id="checkout-company"
+                  type="text"
+                  name="company"
+                  autocomplete="organization"
+                  placeholder="Maison SARL"
+                  class="w-full border border-gray-300 focus:border-slate-900 focus:ring-1 focus:ring-slate-900 rounded-none px-4 py-3 text-sm outline-none transition-all"
+                >
+              </div>
+            </div>
+          </div>
+
+          <!-- -- Bloque pago -- -->
+          <div class="mb-8">
+            <h3 class="text-sm font-semibold uppercase tracking-widest text-slate-900 mb-4">Données de paiement</h3>
+            <div class="space-y-5">
+              <!-- Número de tarjeta -->
+              <div>
+                <label for="checkout-card" class="block text-xs font-semibold uppercase tracking-widest text-slate-900 mb-1">Número de tarjeta <span class="text-red-500">*</span></label>
+                <input
+                  id="checkout-card"
+                  type="text"
+                  name="card"
+                  inputmode="numeric"
+                  autocomplete="cc-number"
+                  placeholder="1234 5678 9012 3456"
+                  required
+                  maxlength="19"
+                  class="w-full border border-gray-300 focus:border-slate-900 focus:ring-1 focus:ring-slate-900 rounded-none px-4 py-3 text-sm outline-none transition-all"
+                >
+                <p class="mt-1 text-xs text-red-500 hidden" id="error-card">Veuillez saisir un numéro de carte valide.</p>
+              </div>
+
+              <!-- Fecha de caducidad y CVV en grid -->
+              <div class="grid grid-cols-1 gap-5 sm:grid-cols-2">
+                <div>
+                  <label for="checkout-expiry" class="block text-xs font-semibold uppercase tracking-widest text-slate-900 mb-1">Fecha de caducidad <span class="text-red-500">*</span></label>
+                  <input
+                    id="checkout-expiry"
+                    type="text"
+                    name="expiry"
+                    autocomplete="cc-exp"
+                    placeholder="MM/AA"
+                    required
+                    maxlength="5"
+                    class="w-full border border-gray-300 focus:border-slate-900 focus:ring-1 focus:ring-slate-900 rounded-none px-4 py-3 text-sm outline-none transition-all"
+                  >
+                  <p class="mt-1 text-xs text-red-500 hidden" id="error-expiry">Format MM/AA requis.</p>
+                </div>
+                <div>
+                  <label for="checkout-cvv" class="block text-xs font-semibold uppercase tracking-widest text-slate-900 mb-1">CVV <span class="text-red-500">*</span></label>
+                  <input
+                    id="checkout-cvv"
+                    type="text"
+                    name="cvv"
+                    inputmode="numeric"
+                    autocomplete="cc-csc"
+                    placeholder="123"
+                    required
+                    maxlength="4"
+                    class="w-full border border-gray-300 focus:border-slate-900 focus:ring-1 focus:ring-slate-900 rounded-none px-4 py-3 text-sm outline-none transition-all"
+                  >
+                  <p class="mt-1 text-xs text-red-500 hidden" id="error-cvv">CVV invalide.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Botones del paso 3 -->
+          <div class="mt-8 flex items-center justify-between">
+            <button type="button" class="btn-prev border border-slate-900 text-slate-900 px-8 py-3 rounded-none hover:bg-slate-900 hover:text-white transition-colors duration-200 uppercase text-xs font-semibold tracking-widest" data-prev="2">
+              Retour
+            </button>
+            <button type="submit" class="bg-slate-900 text-white px-8 py-3 rounded-none hover:bg-slate-800 transition-colors duration-200 uppercase text-xs font-semibold tracking-widest">
+              Confirmer la commande
+            </button>
+          </div>
+        </section>
+
+      </form>
+
+    </div>
   </main>
 
   <!-- ════════════════════════════════════════════════════════════
@@ -151,7 +463,7 @@
       </div>
 
       <div class="mt-10 flex flex-col items-center justify-between gap-4 border-t border-slate-700 pt-6 text-xs sm:flex-row">
-        <p>© 2026 Maison [Nombre]. Tous droits réservés.</p>
+        <p>© 2026 Maison Lumière. Tous droits réservés.</p>
         <ul class="flex gap-6">
           <li><a href="#" class="transition-colors hover:text-white" aria-label="Instagram (enlace de ejemplo)">Instagram</a></li>
           <li><a href="#" class="transition-colors hover:text-white" aria-label="Facebook (enlace de ejemplo)">Facebook</a></li>
@@ -161,17 +473,155 @@
     </div>
   </footer>
 
-  <!-- JS vanilla mínimo: toggle menú móvil -->
+  <!-- JS vanilla: toggle menú móvil + checkout stepper + validaciones -->
   <script>
-    const toggle = document.getElementById('menu-toggle');
-    const menu   = document.getElementById('mobile-menu');
-    if (toggle && menu) {
-      toggle.addEventListener('click', () => {
-        const expanded = toggle.getAttribute('aria-expanded') === 'true';
-        toggle.setAttribute('aria-expanded', String(!expanded));
-        menu.hidden = expanded;
+    // ─── Menú móvil ───
+    (function() {
+      const toggle = document.getElementById('menu-toggle');
+      const menu   = document.getElementById('mobile-menu');
+      if (toggle && menu) {
+        toggle.addEventListener('click', () => {
+          const expanded = toggle.getAttribute('aria-expanded') === 'true';
+          toggle.setAttribute('aria-expanded', String(!expanded));
+          menu.hidden = expanded;
+        });
+      }
+    })();
+
+    // ─── Checkout: Stepper + Validaciones ───
+    (function() {
+      const form      = document.getElementById('checkout-form');
+      const steps     = document.querySelectorAll('.step-panel');
+      const indicators = [1, 2, 3].map(i => document.getElementById('step-indicator-' + i));
+      const labels    = [1, 2, 3].map(i => document.getElementById('step-label-' + i));
+      const connectors = [
+        document.getElementById('connector-1'),
+        document.getElementById('connector-2')
+      ];
+      let currentStep = 1;
+
+      // ─── Resalta el stepper visualmente ───
+      function updateStepper(step) {
+        for (let i = 1; i <= 3; i++) {
+          const dot   = indicators[i - 1];
+          const label = labels[i - 1];
+          if (i < step) {
+            // Completado
+            dot.className = 'flex h-8 w-8 items-center justify-center rounded-full bg-slate-900 text-xs font-bold text-white transition-colors duration-300';
+            label.className = 'ml-2 text-xs font-semibold uppercase tracking-widest text-slate-900 transition-colors duration-300';
+          } else if (i === step) {
+            // Activo
+            dot.className = 'flex h-8 w-8 items-center justify-center rounded-full bg-slate-900 text-xs font-bold text-white ring-2 ring-offset-2 ring-slate-900 transition-colors duration-300';
+            label.className = 'ml-2 text-xs font-semibold uppercase tracking-widest text-slate-900 transition-colors duration-300';
+          } else {
+            // Pendiente
+            dot.className = 'flex h-8 w-8 items-center justify-center rounded-full border-2 border-neutral-300 bg-white text-xs font-bold text-neutral-400 transition-colors duration-300';
+            label.className = 'ml-2 text-xs font-semibold uppercase tracking-widest text-neutral-400 transition-colors duration-300';
+          }
+        }
+        // Conectores
+        if (connectors[0]) {
+          connectors[0].className = step > 1
+            ? 'mx-3 h-px w-12 bg-slate-900 transition-colors duration-300 sm:w-20'
+            : 'mx-3 h-px w-12 bg-neutral-200 transition-colors duration-300 sm:w-20';
+        }
+        if (connectors[1]) {
+          connectors[1].className = step > 2
+            ? 'mx-3 h-px w-12 bg-slate-900 transition-colors duration-300 sm:w-20'
+            : 'mx-3 h-px w-12 bg-neutral-200 transition-colors duration-300 sm:w-20';
+        }
+      }
+
+      // ─── Muestra un paso, oculta los demás ───
+      function showStep(step) {
+        steps.forEach(s => s.classList.add('hidden'));
+        const active = document.querySelector('.step-panel[data-step="' + step + '"]');
+        if (active) active.classList.remove('hidden');
+        currentStep = step;
+        updateStepper(step);
+        // Scroll al inicio del formulario
+        document.querySelector('.step-panel').scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+
+      // ─── Valida campos visibles de un paso ───
+      function validateStep(step) {
+        const panel = document.querySelector('.step-panel[data-step="' + step + '"]');
+        if (!panel) return true;
+        const inputs = panel.querySelectorAll('[required]');
+        let valid = true;
+        inputs.forEach(input => {
+          const errorEl = document.getElementById('error-' + input.name || input.id.replace('checkout-', ''));
+          if (!input.value.trim()) {
+            input.classList.add('border-red-500');
+            if (errorEl) errorEl.classList.remove('hidden');
+            valid = false;
+          } else {
+            input.classList.remove('border-red-500');
+            if (errorEl) errorEl.classList.add('hidden');
+            // Validación extra para email
+            if (input.type === 'email' && !/^\S+@\S+\.\S+$/.test(input.value)) {
+              input.classList.add('border-red-500');
+              if (errorEl) errorEl.classList.remove('hidden');
+              valid = false;
+            }
+          }
+        });
+        return valid;
+      }
+
+      // ─── Limpia errores al escribir ───
+      form.addEventListener('input', (e) => {
+        const input = e.target;
+        input.classList.remove('border-red-500');
+        const errorEl = document.getElementById('error-' + input.name || input.id.replace('checkout-', ''));
+        if (errorEl) errorEl.classList.add('hidden');
       });
-    }
+
+      // ─── Botones "Suivant" ───
+      document.querySelectorAll('.btn-next').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const next = parseInt(btn.getAttribute('data-next'), 10);
+          const prev = next - 1;
+          if (validateStep(prev)) {
+            showStep(next);
+          }
+        });
+      });
+
+      // ─── Botones "Retour" ───
+      document.querySelectorAll('.btn-prev').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const prev = parseInt(btn.getAttribute('data-prev'), 10);
+          showStep(prev);
+        });
+      });
+
+      // ─── Envío final: validar paso 3 + confirmación ───
+      form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        if (!validateStep(3)) return;
+
+        // Mostrar confirmación simulada
+        const overlay = document.createElement('div');
+        overlay.className = 'fixed inset-0 z-50 flex items-center justify-center bg-black/50 px-4';
+        overlay.innerHTML =
+          '<div class="max-w-md w-full bg-white p-8 text-center shadow-xl">' +
+            '<div class="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-green-100">' +
+              '<svg class="h-8 w-8 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>' +
+            '</div>' +
+            '<h2 class="font-serif text-xl tracking-wide text-slate-900 mb-2">Commande confirmée</h2>' +
+            '<p class="text-sm text-gray-500 mb-6">Merci pour votre commande. Vous recevrez un email de confirmation sous peu.</p>' +
+            '<a href="index.html" class="inline-block bg-slate-900 text-white px-8 py-3 rounded-none hover:bg-slate-800 transition-colors duration-200 uppercase text-xs font-semibold tracking-widest">Retour à l\'accueil</a>' +
+          '</div>';
+        overlay.addEventListener('click', (e) => {
+          if (e.target === overlay) overlay.remove();
+        });
+        document.body.appendChild(overlay);
+      });
+
+      // ─── Inicializa en paso 1 ───
+      showStep(1);
+    })();
   </script>
 </body>
 </html>
